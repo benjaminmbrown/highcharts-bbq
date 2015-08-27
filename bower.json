@@ -1,0 +1,7 @@
+{
+  "name": "my-project",
+  "dependencies": {
+    "highcharts": "~3.0",
+    "jquery": "^1.9"
+  }
+}

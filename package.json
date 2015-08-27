@@ -1,0 +1,19 @@
+{
+  "name": "highcharts-bbq",
+  "version": "1.0.0",
+  "description": "Who wants a cookbook when you can have a BBQ?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjaminmbrown/highcharts-bbq.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benjaminmbrown/highcharts-bbq/issues"
+  },
+  "homepage": "https://github.com/benjaminmbrown/highcharts-bbq#readme"
+}
