@@ -20,7 +20,8 @@
             $(document).ready(function() {
                var options = {
                   chart: {
-                        type: 'bar'
+                        type: 'bar',
+                        renderTo: 'highchartsBBQ'
                     },
                     title: {
                         text: 'Boilerplate (BBQ) Highchart'
@@ -30,7 +31,8 @@
                         data: [1, 2, 3, 4]
                     }]
                 }
-                 $('#highchartsBBQ').highcharts(options);
+                var chart = new Highcharts.Chart(options);
+                
             });
         </script>
     </body>
