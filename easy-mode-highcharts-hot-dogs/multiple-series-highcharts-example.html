@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <style type='text/css'>
+            #highchartsBBQ {
+                border: 2px solid gray;
+                padding: 25px;
+                margin: 15px;
+                 width: 400px;
+                height: 400px;
+            }
+        </style>
+         <script src='/bower_components/jquery/dist/jquery.js'></script>
+        <script src='/bower_components/bootstrap/dist/js/bootstrap.js'></script>
+        <script src='/bower_components/bootstrap/dist/css/bootstrap-theme.css'></script
+          <script src='/bower_components/bootstrap/dist/css/bootstrap.css'></script>
+       
+       
+
+        <script src='/bower_components/highcharts/highcharts.js'></script>
+       
+    </head>
+    <body>
+    <a href="../index.html">Back</a>
+        <div id='highchartsBBQ'></div>
+
+        <script type='text/javascript'>
+            $(document).ready(function() {
+               var options = {
+                  chart: {
+                        type: 'bar',
+                        renderTo: 'highchartsBBQ'
+                    },
+                    title: {
+                        text: 'Boilerplate (BBQ) Highchart'
+                    },
+                    series: [{
+                        name: 'Hot Dogs Eaten',
+                        data: [1, 2, 3, 4]
+                    },
+                    {
+                        name: 'Cheeseburgers Snarfed',
+                        data: [4, 6, 8, 7]
+                    },
+
+
+                    ]
+                }
+                var chart = new Highcharts.Chart(options);
+                
+            });
+        </script>
+    </body>
+</html>

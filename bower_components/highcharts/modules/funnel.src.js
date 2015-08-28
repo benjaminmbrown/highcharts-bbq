@@ -18,10 +18,12 @@ var defaultOptions = Highcharts.getOptions(),
 	seriesTypes = Highcharts.seriesTypes,
 	merge = Highcharts.merge,
 	noop = function () {},
-	each = Highcharts.each;
+	each = Highcharts.each,
+	pick = Highcharts.pick;
 
 // set default options
 defaultPlotOptions.funnel = merge(defaultPlotOptions.pie, {
+	animation: false,
 	center: ['50%', '50%'],
 	width: '90%',
 	neckWidth: '30%',
@@ -48,7 +50,6 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 	
 	type: 'funnel',
 	animate: noop,
-	singularTooltips: true,
 
 	/**
 	 * Overrides the pie translate method
@@ -68,12 +69,13 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			chart = series.chart,
 			options = series.options,
 			reversed = options.reversed,
+			ignoreHiddenPoint = options.ignoreHiddenPoint,
 			plotWidth = chart.plotWidth,
 			plotHeight = chart.plotHeight,
 			cumulative = 0, // start at top
 			center = options.center,
 			centerX = getLength(center[0], plotWidth),
-			centerY = getLength(center[0], plotHeight),
+			centerY = getLength(center[1], plotHeight),
 			width = getLength(options.width, plotWidth),
 			tempWidth,
 			getWidthAt,
@@ -132,7 +134,9 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 
 		// get the total sum
 		each(data, function (point) {
-			sum += point.y;
+			if (!ignoreHiddenPoint || point.visible !== false) {
+				sum += point.y;
+			}
 		});
 
 		each(data, function (point) {
@@ -205,7 +209,9 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			// Mimicking pie data label placement logic
 			point.half = half;
 
-			cumulative += fraction;
+			if (!ignoreHiddenPoint || point.visible !== false) {
+				cumulative += fraction;
+			}
 		});		
 	},
 	/**
@@ -221,16 +227,16 @@ seriesTypes.funnel = Highcharts.extendClass(seriesTypes.pie, {
 			renderer = chart.renderer;
 
 		each(series.data, function (point) {
-			
-			var graphic = point.graphic,
+			var pointOptions = point.options,
+				graphic = point.graphic,
 				shapeArgs = point.shapeArgs;
 
-			if (!graphic) { // Create the shapes
+			if (!graphic) { // Create the shapes				
 				point.graphic = renderer.path(shapeArgs).
 					attr({
 						fill: point.color,
-						stroke: options.borderColor,
-						'stroke-width': options.borderWidth
+						stroke: pick(pointOptions.borderColor, options.borderColor),
+						'stroke-width': pick(pointOptions.borderWidth, options.borderWidth)
 					}).
 					add(series.group);
 					
