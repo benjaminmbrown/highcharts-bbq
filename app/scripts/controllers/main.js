@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name myProjectApp.controller:MainCtrl
+ * @name highchartsBbqApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the myProjectApp
+ * Controller of the highchartsBbqApp
  */
-angular.module('myProjectApp')
+angular.module('highchartsBbqApp')
   .controller('MainCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

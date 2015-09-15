@@ -2,16 +2,18 @@
 
 /**
  * @ngdoc overview
- * @name myProjectApp
+ * @name highchartsBbqApp
  * @description
- * # myProjectApp
+ * # highchartsBbqApp
  *
  * Main module of the application.
  */
 angular
-  .module('myProjectApp', [
+  .module('highchartsBbqApp', [
     'ngAnimate',
+    'ngAria',
     'ngCookies',
+    'ngMessages',
     'ngResource',
     'ngRoute',
     'ngSanitize',
