@@ -74,9 +74,7 @@ def point():
 def index():
 	return static_file('index.html', root='.')
 
-@route('/bbq-recipes/')
-def index():
-	return static_file('/multiple-series-highcharts-example.html', root='.')
+
 
 @route('/bower_components/<filename:path>')
 def index(filename):

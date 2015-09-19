@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <style type='text/css'>
+            #highchartsBBQ {
+                border: 2px solid gray;
+                padding: 25px;
+                margin: 15px;
+                 width: 400px;
+                height: 400px;
+            }
+        </style>
+
+        <script src='/bower_components/jquery/dist/jquery.js'></script>
+        <script src='/bower_components/bootstrap/dist/js/bootstrap.js'></script>
+        <script src='/bower_components/bootstrap/dist/css/bootstrap-theme.css'></script>
+        <script src='/bower_components/bootstrap/dist/css/bootstrap.css'></script>
+       
+    </head>
+    <body>
+        <div id='highchartsBBQ'></div>
+<p>Note: You'll need to have the python bottle server running via 'python bottle_server.py' . Make sureyou have python 2.7 and pip installed</p>
+        <script type='text/javascript'>
+            $(document).ready(function() {
+               var options = {
+                  chart: {
+                        type: 'bar',
+                        renderTo: 'highchartsBBQ'
+                        events : {
+                            load : function(){
+                                //chart self reference
+                                var self = this;
+
+                                setInterval(function(){
+                                    $.getJSON('http://localhost:8000/ajax/series', function(data){
+                                        console.log("data response", data);
+                                        self.series[0].setData(data);
+
+                                    })
+
+                                }, 3000);
+                            }
+                        }
+                    },
+                    title: {
+                        text: "BBQ'ing with AJAX calls"
+                    },
+                    series: [{
+                        name: 'AJAX data (series)',
+                        data: []
+                    }]
+                }
+                var chart = new Highcharts.Chart(options);
+            });
+        </script>
+    </body>
+</html>

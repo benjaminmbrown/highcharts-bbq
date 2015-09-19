@@ -9,44 +9,47 @@
                 height: 400px;
             }
         </style>
+
                <script src='https://code.jquery.com/jquery-2.1.4.js'></script>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
        
-       
-
-        <script src='/bower_components/highcharts/highcharts.js'></script>
-       
     </head>
     <body>
-    <a href="../index.html">Back</a>
         <div id='highchartsBBQ'></div>
-
+<p>Note: You'll need to have the python bottle websocket server running via 'python websocket_server.py' . Make sure you have python 2.7 and pip installed</p>
         <script type='text/javascript'>
             $(document).ready(function() {
                var options = {
                   chart: {
                         type: 'bar',
                         renderTo: 'highchartsBBQ'
+                        events : {
+                            load : function(){
+                                //chart self reference
+                                var self = this;
+
+                                setInterval(function(){
+                                    $.getJSON('http://localhost:8000/ajax/series', function(data){
+                                        console.log("data response", data);
+                                        self.series[0].setData(data);
+
+                                    })
+
+                                }, 3000);
+                            }
+                        }
                     },
                     title: {
-                        text: 'Boilerplate (BBQ) Highchart'
+                        text: "BBQ'ing with AJAX calls"
                     },
                     series: [{
-                        name: 'Hot Dogs Eaten',
-                        data: [1, 2, 3, 4]
-                    },
-                    {
-                        name: 'Cheeseburgers Snarfed',
-                        data: [4, 6, 8, 7]
-                    },
-
-
-                    ]
+                        name: 'AJAX data (series)',
+                        data: []
+                    }]
                 }
                 var chart = new Highcharts.Chart(options);
-                
             });
         </script>
     </body>
