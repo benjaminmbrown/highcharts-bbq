@@ -12,6 +12,7 @@
 
                <script src='https://code.jquery.com/jquery-2.1.4.js'></script>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+            <script src='/bower_components/highcharts/highcharts.js'></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
        
@@ -23,32 +24,36 @@
             $(document).ready(function() {
                var options = {
                   chart: {
-                        type: 'bar',
-                        renderTo: 'highchartsBBQ'
+                        type: 'spline',
+                        renderTo: 'highchartsBBQ',
                         events : {
                             load : function(){
+                               
                                 //chart self reference
                                 var self = this;
 
-                                setInterval(function(){
-                                    $.getJSON('http://localhost:8000/ajax/series', function(data){
-                                        console.log("data response", data);
-                                        self.series[0].setData(data);
+                                 console.log('highcharts series', self.series[0].data);
 
-                                    })
+                                var connection = new WebSocket('ws://localhost:8001/websocket');
 
-                                }, 3000);
+                                connection.onmessage = function(event) {
+                                    console.log("data",event.data);
+                                    var data = JSON.parse(event.data);
+                                    console.log("parsed data:", data);
+                                    self.series[0].setData(data); 
+                                  }
                             }
                         }
                     },
                     title: {
-                        text: "BBQ'ing with AJAX calls"
+                        text: "BBQ'ing with Websockets"
                     },
                     series: [{
-                        name: 'AJAX data (series)',
-                        data: []
+                        name: 'Websockets data',
+                        data: [{"y": 36, "x": 1442634310, "color": "#92250A"},{"y": 66, "x": 1442634330, "color": "#7BBAE2"}]
                     }]
                 }
+
                 var chart = new Highcharts.Chart(options);
             });
         </script>
