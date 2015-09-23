@@ -10,12 +10,11 @@
             }
         </style>
 
-               <script src='https://code.jquery.com/jquery-2.1.4.js'></script>
+       <script src='https://code.jquery.com/jquery-2.1.4.js'></script>
        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-            <script src='/bower_components/highcharts/highcharts.js'></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-       
+       <script src='/bower_components/highcharts/highcharts.js'></script>
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
     </head>
     <body>
         <div id='highchartsBBQ'></div>
@@ -32,15 +31,14 @@
                                 //chart self reference
                                 var self = this;
 
-                                 console.log('highcharts series', self.series[0].data);
-
                                 var connection = new WebSocket('ws://localhost:8001/websocket');
 
                                 connection.onmessage = function(event) {
-                                    console.log("data",event.data);
+                                   
                                     var data = JSON.parse(event.data);
-                                    console.log("parsed data:", data);
-                                    self.series[0].setData(data); 
+                                
+                                    self.series[0].addPoint(data)
+                                    console.log("post y:",self.series[0].data);
                                   }
                             }
                         }
@@ -50,7 +48,7 @@
                     },
                     series: [{
                         name: 'Websockets data',
-                        data: [{"y": 36, "x": 1442634310, "color": "#92250A"},{"y": 66, "x": 1442634330, "color": "#7BBAE2"}]
+                        data: []
                     }]
                 }
 

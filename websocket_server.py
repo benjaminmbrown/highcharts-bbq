@@ -31,7 +31,7 @@ class WebSocketHandler(websocket.WebSocketHandler):
     }
     print self
     self.write_message(json.dumps(point_data))
-    timeout = r() / 10
+    timeout = r() / 15
     
     # Call this again within the next 0-25 seconds
     ioloop.IOLoop.instance().add_timeout(datetime.
